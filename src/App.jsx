@@ -8,7 +8,6 @@ import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
-// import BoardDetails from './components/BoardDetails/BoardDetails';
 import * as boardService from './services/boardService';
 
 //contexts
@@ -35,14 +34,13 @@ const App = () => {
   }, [user]) ;
 
     
-
+  console.log(boards)
 
   return (
     <>
       <NavBar/>
       <Routes>
         <Route path='/' element={user ? <Dashboard boards={boards}/> : <Landing />} />
-        {/* <Route path='/:boardId' element={<BoardDetails/>} /> */}
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path='/sign-in' element={<SignInForm />} />
       </Routes>
