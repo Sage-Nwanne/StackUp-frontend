@@ -4,7 +4,7 @@ const CARD_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/cards`;
 
 const LIST_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/lists`;
 
-// src/services/StackUpService.js
+// src/services/stackUpService.js
 
 const boardIndex = async () => {
   try {
