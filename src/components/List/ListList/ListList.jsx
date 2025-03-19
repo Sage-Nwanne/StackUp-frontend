@@ -1,5 +1,13 @@
+import { Link } from "react-router";
+
 const ListList = (props) => {
-  return <h1>Lists</h1>;
+  return (
+    <div>
+      {props.list.map((list) => {
+        <Link>{list.name}</Link>;
+      })}
+    </div>
+  );
 };
 
 export default ListList;
