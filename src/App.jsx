@@ -22,9 +22,9 @@ const App = () => {
         <Route path="/" element={user ? <Dashboard /> : <Landing />} />
         {user ? (
           <>
-            <Route element={<BoardList />} />
-            <Route element={<CardList />} />
-            <Route element={<ListList />} />
+            <Route path="/board" element={<BoardList />} />
+            <Route path="/cards" element={<CardList />} />
+            <Route path="/lists" element={<ListList />} />
           </>
         ) : (
           <>
