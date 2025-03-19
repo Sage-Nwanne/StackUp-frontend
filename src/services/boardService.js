@@ -5,7 +5,13 @@ const index = async () => {
       const res = await fetch(BASE_URL, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
-      return res.json();
+
+      const data = await res.json();
+      if (data.err) {
+        throw new Error(data.err);
+      }
+
+      return data;
     } catch (error) {
       console.log(error);
     }
