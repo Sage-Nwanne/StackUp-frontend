@@ -43,6 +43,7 @@ const App = () => {
                 />
                 <Route path="/sign-up" element={<SignUpForm />} />
                 <Route path="/sign-in" element={<SignInForm />} />
+                <Route path="/sign-out" />
                
                 <Route path="/dashboard/:boardId" element={<BoardDetails />} />
             </Routes>
