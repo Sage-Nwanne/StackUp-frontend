@@ -45,6 +45,12 @@ const App = () => {
     }
   };
 
+  const handleUpdateBoard = async (boardId, formData) => {
+    const updatedBoard = await boardService.update(boardId, formData);
+    setBoards(boards.map((board) => (boardId === board._id ? updatedBoard : board)));
+    navigate("/dashboard");
+  };
+
   return (
     <>
       <NavBar selectedBoardId={selectedBoardId} />
@@ -65,6 +71,7 @@ const App = () => {
           }
         />
         <Route path="/board/new" element={<BoardForm handleCreateBoard={handleCreateBoard} />}/>
+        <Route path="/board/:boardId/edit" element={<BoardForm handleUpdateBoard={handleUpdateBoard} />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/sign-out" />

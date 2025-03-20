@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useParams } from "react-router";
 
 const BoardForm = (props) => {
+  const { boardId } = useParams();
   const [formData, setFormData] = useState({
     name: " ",
   });
@@ -11,12 +13,16 @@ const BoardForm = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log("this is firing");
-    props.handleCreateBoard(formData);
+    if (boardId) {
+      props.handleUpdateBoard(boardId, formData);
+    } else {
+      props.handleCreateBoard(formData);
+    };
   };
 
   return (
     <main>
+      <h2>{boardId ? "Edit Board" : "New Board"}</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name-input">Board Name</label>
         <input
