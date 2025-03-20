@@ -59,15 +59,15 @@ const App = () => {
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={user ? <Dashboard /> : <Landing />} />
+        <Route path="/dashboard/:boardId" element={user ? <Dashboard /> : <Landing />} />
         {user ? (
           <>
-            <Route path="/cards" element={<CardList cards={cards} />} />
-            <Route path="/lists" element={<ListList lists={lists} />} />
             <Route path="/boards/:boardId" element={<BoardDetails />} />
             <Route path="/boards/new" element={<BoardForm handleAddBoard={handleAddBoard}/>} />
-            <Route path="/cards/:cardId" element={<CardDetails />} />
+            <Route path="/lists" element={<ListList lists={lists} />} />
             <Route path="/lists/:listId" element={<ListDetails />} />
+            <Route path="/cards" element={<CardList cards={cards} />} />
+            <Route path="/cards/:cardId" element={<CardDetails />} />
           </>
         ) : (
           <>
