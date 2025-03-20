@@ -1,0 +1,76 @@
+
+
+.landingTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 2rem 10%;
+  background-color: #1a1a1a;
+  min-height: 500px; /* Changed from 80vh to fixed height */
+  margin-top: 2rem; /* Add some space from the top */
+}
+
+.contentLeft {
+  flex: 1;
+  padding-right: 4rem;
+  max-width: 50%; /* Ensure text doesn't take too much space */
+}
+
+.contentLeft h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+}
+
+.contentLeft p {
+  font-size: 1.5rem;
+  color: #a0a0a0;
+  margin: 1rem 0 2rem 0;
+}
+
+.cta-button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  background-color: #535bf2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #2832f1;
+}
+
+.imagePlaceholder {
+  flex: 1;
+  height: 350px; /* Reduced height */
+  background-color: #2a2a2a;
+  border: 2px dashed #404040;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagePlaceholder::before,
+.imagePlaceholder::after {
+  content: '';
+  position: absolute;
+  background-color: #404040;
+}
+
+.imagePlaceholder::before {
+  width: 2px;
+  height: 80%;
+  transform: rotate(45deg);
+}
+
+.imagePlaceholder::after {
+  width: 80%;
+  height: 2px;
+  transform: rotate(45deg);
+}
