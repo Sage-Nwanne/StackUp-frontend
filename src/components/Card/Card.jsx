@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const Card = ({ card, moveCardToAnotherList }) => {
   const [isHovered, setIsHovered] = useState(false);

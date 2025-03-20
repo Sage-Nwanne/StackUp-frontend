@@ -13,41 +13,47 @@ import { useContext, useState, useEffect } from "react";
 import * as boardService from "./services/boardService";
 
 const App = () => {
-    const { user } = useContext(UserContext);
-    const [boards, setBoards] = useState([]);
-    const [selectedBoardId, setSelectedBoardId] = useState(null); 
+  const { user } = useContext(UserContext);
+  const [boards, setBoards] = useState([]);
+  const [selectedBoardId, setSelectedBoardId] = useState(null);
 
-    useEffect(() => {
-        const fetchAllBoards = async () => {
-            try {
-                const boardsData = await boardService.index();
-                setBoards(boardsData);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        if (user) fetchAllBoards();
-    }, [user]);
+  useEffect(() => {
+    const fetchAllBoards = async () => {
+      try {
+        const boardsData = await boardService.index();
+        setBoards(boardsData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (user) fetchAllBoards();
+  }, [user]);
 
-    return (
-        <>
-            
-            <NavBar selectedBoardId={selectedBoardId} />
+  return (
+    <>
+      <NavBar selectedBoardId={selectedBoardId} />
 
-            <Routes>
-                <Route
-                    path="/"
-                    element={
-                        user ? <Dashboard boards={boards} setSelectedBoardId={setSelectedBoardId} /> : <SignInForm />
-                    }
-                />
-                <Route path="/sign-up" element={<SignUpForm />} />
-                <Route path="/sign-in" element={<SignInForm />} />
-               
-                <Route path="/dashboard/:boardId" element={<BoardDetails />} />
-            </Routes>
-        </>
-    );
+      <Routes>
+        <Route
+          path="/"
+          element={
+            user ? (
+              <Dashboard
+                boards={boards}
+                setSelectedBoardId={setSelectedBoardId}
+              />
+            ) : (
+              <SignInForm />
+            )
+          }
+        />
+        <Route path="/sign-up" element={<SignUpForm />} />
+        <Route path="/sign-in" element={<SignInForm />} />
+
+        <Route path="/dashboard/:boardId" element={<BoardDetails />} />
+      </Routes>
+    </>
+  );
 };
 
 export default App;
