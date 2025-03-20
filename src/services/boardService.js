@@ -56,4 +56,3 @@ export const deleteBoard = async (id) => {
 export const getTimeline = async (boardId) => {
   return await fetchWithAuth(`${BASE_URL}/${boardId}/timeline`);
 };
-

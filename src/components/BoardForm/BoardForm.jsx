@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const BoardForm = (props) => {
   const [formData, setFormData] = useState({
-    name: "",
+    name: " ",
   });
 
   const handleChange = (evt) => {
@@ -11,22 +11,23 @@ const BoardForm = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    props.handleAddBoard(formData);
-  }
+    console.log("this is firing");
+    props.handleCreateBoard(formData);
+  };
 
   return (
     <main>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name-input">Board Name</label>
         <input
-            type="text"
-            name="name"
-            id="name-input"
-            value="{formData.name}"
-            onChange={handleChange}
+          type="text"
+          name="name"
+          id="name-input"
+          value={formData.name}
+          onChange={handleChange}
         />
-      </form>
       <button type="submit">Add Board</button>
+      </form>
     </main>
   );
 };

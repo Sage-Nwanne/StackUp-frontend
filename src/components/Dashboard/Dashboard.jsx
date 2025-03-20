@@ -19,7 +19,10 @@ const Dashboard = (props) => {
       <ul>
         {props.boards.map((board) => (
           <li key={board._id} className="board-item">
-            <Link to={`/dashboard/${board._id}`} onClick={() => handleBoardClick(board._id)}>
+            <Link
+              to={`/dashboard/${board._id}`}
+              onClick={() => handleBoardClick(board._id)}
+            >
               {board.name}
             </Link>
           </li>
