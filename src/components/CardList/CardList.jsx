@@ -4,7 +4,9 @@ const CardList = (props) => {
   return (
     <div>
       {props.cards.map((card) => {
-        <Link>{card.title}</Link>;
+        <Link key={card._id} to={`/cards/${card._id}`}>
+          {card.title}
+        </Link>;
       })}
     </div>
   );

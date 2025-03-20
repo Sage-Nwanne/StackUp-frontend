@@ -39,8 +39,42 @@ const listIndex = async () => {
   }
 };
 
+const createBoard = async (boardFormData) => {
+    try {
+      const res = await fetch(BOARD_URL, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(boardFormData),
+      });
+      return res.json();
+    } catch (error) {
+      console.log(error);
+    }
+};
+
+const createCard = async (cardId, cardFormData) => {
+    try {
+      const res = await fetch(`${CARD_URL}/${cardId}/text`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cardFormData),
+      });
+      return res.json();
+    } catch (error) {
+      console.log(error);
+    }
+}
+
 export { 
   boardIndex,
   cardIndex,
   listIndex,
+  createBoard,
+  createCard
 };

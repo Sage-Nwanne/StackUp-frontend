@@ -4,7 +4,9 @@ const ListList = (props) => {
   return (
     <div>
       {props.list.map((list) => {
-        <Link>{list.name}</Link>;
+        <Link key={list._id} to={`/lists/${list._id}`}>
+          {list.name}
+        </Link>;
       })}
     </div>
   );
