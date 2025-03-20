@@ -1,34 +1,29 @@
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
 
-import { UserContext } from '../../contexts/UserContext';
-
-import * as userService from '../../services/userService';
-
-const Dashboard = () => {
+const Dashboard = ({ boards, setSelectedBoardId }) => {
   const { user } = useContext(UserContext);
-  const [ users, setUsers ] = useState([]);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const fetchedUsers = await userService.index();
-        setUsers(fetchedUsers);
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    if (user) fetchUsers();
-  }, [user]);
+  const handleBoardClick = (boardId) => {
+    setSelectedBoardId(boardId); // Update selectedBoardId in App.jsx
+    localStorage.setItem("selectedBoardId", boardId);
+  };
 
   return (
     <main>
       <h1>Welcome, {user.username}</h1>
-      <p>
-        This is the dashboard page where you can see a list of all the users.
-      </p>
+      <p>This is the dashboard page where you can see a list of your boards.</p>
       <ul>
-        {users.map(user => (
-          <li key={user._id}>{user.username}</li>
+        {boards.map((board) => (
+          <li key={board._id}>
+            <Link 
+              to={`/dashboard/${board._id}`} 
+              onClick={() => handleBoardClick(board._id)}
+            >
+              {board.name}
+            </Link>
+          </li>
         ))}
       </ul>
     </main>
