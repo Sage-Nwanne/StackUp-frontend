@@ -1,48 +1,41 @@
-// react
-import { useContext, useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router';
+import { Routes, Route } from 'react-router-dom';
 
-//components
+// Components
 import NavBar from './components/NavBar/NavBar';
+import Dashboard from './components/Dashboard/Dashboard';
+import BoardDetails from './components/BoardDetails/BoardDetails';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
-import Landing from './components/Landing/Landing';
-import Dashboard from './components/Dashboard/Dashboard';
+
+// Contexts
+import { UserContext } from './contexts/UserContext';
+import { useContext, useState, useEffect } from 'react';
 import * as boardService from './services/boardService';
 
-//contexts
-import { UserContext } from './contexts/UserContext';
-
-
 const App = () => {
-  const [boards, setBoards] = useState([]);
   const { user } = useContext(UserContext);
+  const [boards, setBoards] = useState([]);
 
-  //fetch all boards
   useEffect(() => {
-   const fetchAllBoards = async () => {
-    try {
-      const boardsData = await boardService.index();
-      
-      setBoards(boardsData);
-    } catch (error) {
-      console.log(error);
-    }
-
+    const fetchAllBoards = async () => {
+      try {
+        const boardsData = await boardService.index();
+        setBoards(boardsData);
+      } catch (error) {
+        console.log(error);
+      }
     };
     if (user) fetchAllBoards();
-  }, [user]) ;
-
-    
-  console.log(boards)
+  }, [user]);
 
   return (
     <>
-      <NavBar/>
+      <NavBar />
       <Routes>
-        <Route path='/' element={user ? <Dashboard boards={boards}/> : <Landing />} />
-        <Route path='/sign-up' element={<SignUpForm />} />
-        <Route path='/sign-in' element={<SignInForm />} />
+        <Route path="/" element={user ? <Dashboard boards={boards} /> : <SignInForm />} />
+        <Route path="/sign-up" element={<SignUpForm />} />
+        <Route path="/sign-in" element={<SignInForm />} />
+        <Route path="/dashboard/:boardId" element={<BoardDetails />} />
       </Routes>
     </>
   );
