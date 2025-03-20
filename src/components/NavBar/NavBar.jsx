@@ -10,7 +10,7 @@ const NavBar = ({ user}) => {
           {!user ? (
            
             <>
-              <li><Link to="/">Dashboard</Link></li>
+              <li><Link to="/dashboard">Dashboard</Link></li>
               <li><Link to="/create">Create Board</Link></li>
               <li><Link to="/search">Board Search</Link></li>
               <li><button className="sign-out-btn">Log Out</button></li>

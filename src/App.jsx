@@ -11,6 +11,7 @@ import SignInForm from "./components/SignInForm/SignInForm";
 import { UserContext } from "./contexts/UserContext";
 import { useContext, useState, useEffect } from "react";
 import * as boardService from "./services/boardService";
+import Landing from "./components/Landing/Landing";
 
 const App = () => {
     const { user } = useContext(UserContext);
@@ -35,8 +36,9 @@ const App = () => {
             <NavBar selectedBoardId={selectedBoardId} />
 
             <Routes>
+              <Route path="/" element={<Landing boards={boards} />} />
                 <Route
-                    path="/"
+                    path="/dashboard"
                     element={
                         user ? <Dashboard boards={boards} setSelectedBoardId={setSelectedBoardId} /> : <SignInForm />
                     }
