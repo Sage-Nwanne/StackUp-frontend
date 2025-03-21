@@ -1,19 +1,22 @@
-import React from "react";
-import Card from "../Card/Card"; // Assuming you have a Card component
+import { useDrop } from "react-dnd";
+import Card from "../Card/Card";
+const List = ({ list, onMoveCard }) => {
+    const [{ isOver }, drop] = useDrop({
+        accept: "CARD",
+        drop: (item) => onMoveCard(item.id, list._id),
+        collect: (monitor) => ({
+            isOver: monitor.isOver(),
+        }),
+    });
 
-const List = ({ list }) => {
-  return (
-    <div>
-      <h2>{list.name}</h2>
-      <div>
-        {list.cards && list.cards.length > 0 ? (
-          list.cards.map((card) => <Card key={card._id} card={card} />)
-        ) : (
-          <p>No cards in this list</p>
-        )}
-      </div>
-    </div>
-  );
+    return (
+        <div ref={drop} className="list">
+            <h3>{list.name}</h3>
+            {list.cards.map((card) => (
+                <Card key={card._id} card={card} />
+            ))}
+        </div>
+    );
 };
 
 export default List;

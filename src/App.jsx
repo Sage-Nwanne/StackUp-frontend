@@ -1,4 +1,7 @@
 import { Routes, Route } from "react-router-dom";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 
 // Components
 import NavBar from "./components/NavBar/NavBar";
@@ -52,33 +55,17 @@ const App = () => {
   };
 
   return (
-    <>
-      <NavBar selectedBoardId={selectedBoardId} />
+    <DndProvider backend={HTML5Backend}>
 
-      <Routes>
-        <Route path="/" element={<Landing boards={boards} />} />
-        <Route
-          path="/dashboard"
-          element={
-            user ? (
-              <Dashboard
-                boards={boards}
-                setSelectedBoardId={setSelectedBoardId}
-              />
-            ) : (
-              <SignInForm />
-            )
-          }
-        />
-        <Route path="/board/new" element={<BoardForm handleCreateBoard={handleCreateBoard} />}/>
-        <Route path="/board/:boardId/edit" element={<BoardForm handleUpdateBoard={handleUpdateBoard} />} />
-        <Route path="/sign-up" element={<SignUpForm />} />
-        <Route path="/sign-in" element={<SignInForm />} />
-        <Route path="/sign-out" />
-
-        <Route path="/dashboard/:boardId" element={<BoardDetails />} />
-      </Routes>
-    </>
+        <NavBar user={user} />
+        <Routes>
+          <Route path="/" element={user ? <Dashboard boards={boards} /> : <SignInForm />} />
+          <Route path="/sign-up" element={<SignUpForm />} />
+          <Route path="/sign-in" element={<SignInForm />} />
+          <Route path="/dashboard/:boardId" element={<BoardDetails />} />
+        </Routes>
+    
+    </DndProvider>
   );
 };
 
