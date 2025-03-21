@@ -1,7 +1,8 @@
 import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
-import "./Dashboard.css";  // Ensure you have proper styling
+import {index, deleteBoard,} from "../../services/boardService";
 
 const Dashboard = (props) => {
   const { user } = useContext(UserContext);
@@ -9,27 +10,50 @@ const Dashboard = (props) => {
   
   const [searchTerm, setSearchTerm] = useState('');  // Local search query
   const [filteredBoards, setFilteredBoards] = useState(props.boards);  // Filtered boards
+ // Fetch boards when the component mounts or when user changes
+ useEffect(() => {
+  if (user) {
+    fetchBoards();
+  }
+}, [user]); // Runs when the user is available
+useEffect(() => {
+  // Filter boards based on the search term
+  const filtered = props.boards.filter((board) =>
+    board.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  setFilteredBoards(filtered);
+}, [searchTerm, props.boards]);
 
-  useEffect(() => {
-    // Filter boards based on the search term
-    const filtered = props.boards.filter((board) =>
-      board.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredBoards(filtered);
-  }, [searchTerm, props.boards]);
+const fetchBoards = async () => {
+  try {
+    const data = await index(); // Call the index function from boardService to fetch boards
+    setBoards(data); // Update state with the fetched boards
+  } catch (error) {
+    console.error("Error fetching boards:", error);
+  }
+};
 
-  const handleBoardClick = (boardId) => {
-    setSelectedBoardId(boardId);
-    localStorage.setItem("selectedBoardId", boardId);
-  };
+    const handleBoardClick = (boardId) => {
+        setSelectedBoardId(boardId);
+        localStorage.setItem("selectedBoardId", boardId);
+    };
 
-  return (
-    <main className="dashboard-container">
-      <h1>Welcome, {user.username}</h1>
-      <h2>Your Boards</h2>
+    const handleDeleteBoard = async (boardId) => {
+      try {
+        // Call the deleteBoard function from boardService
+        await deleteBoard(boardId);
+  
+        // Remove the deleted board from the state without reloading the page
+        setFilteredBoards((prevBoards) => prevBoards.filter((board) => board._id !== boardId));
+      } catch (error) {
+        console.error("Error deleting board:", error);
+      }
+    };
+ 
 
-      {/* Local Search Input */}
-      <div className="local-search-container">
+    return (
+        <main>
+           <div className="local-search-container">
         <input
           type="text"
           placeholder="Search your boards..."
@@ -37,10 +61,10 @@ const Dashboard = (props) => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-
-      <p>This is the dashboard page where you can see a list of your boards.</p>
-      
-      {/* Display Filtered Boards */}
+            <h1>Welcome, {user.username}</h1>
+            <h2>Your Boards</h2>
+            <p>This is the dashboard page where you can see a list of your boards.</p>
+             {/* Display Filtered Boards */}
       <ul>
         {filteredBoards.length > 0 ? (
           filteredBoards.map((board) => (
@@ -48,14 +72,17 @@ const Dashboard = (props) => {
               <Link to={`/dashboard/${board._id}`} onClick={() => handleBoardClick(board._id)}>
                 {board.name}
               </Link>
+              <button onClick={() => handleDeleteBoard(board._id)}>Delete</button>
+              <button> <Link to={`/dashboard/${board._id}/edit`}>Rename</Link></button>
             </li>
           ))
         ) : (
           <li>No boards found.</li>
         )}
       </ul>
-    </main>
-  );
+            
+        </main>
+    );
 };
 
 export default Dashboard;
