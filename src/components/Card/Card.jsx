@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
 const Card = ({ card, moveCardToAnotherList }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -18,10 +18,10 @@ const Card = ({ card, moveCardToAnotherList }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
-        border: isHovered ? '2px solid #4CAF50' : '2px solid #ccc',
-        padding: '10px',
-        margin: '10px 0',
-        cursor: 'pointer',
+        border: isHovered ? "2px solid #4CAF50" : "2px solid #ccc",
+        padding: "10px",
+        margin: "10px 0",
+        cursor: "pointer",
       }}
     >
       <h3>{card.name}</h3>
@@ -29,7 +29,9 @@ const Card = ({ card, moveCardToAnotherList }) => {
         <div className="card-hover-details">
           <p>Click to move this card or view details</p>
           {/* Example of moving the card to another list */}
-          <button onClick={() => handleMoveCard('newListIdHere')}>Move to another list</button>
+          <button onClick={() => handleMoveCard("newListIdHere")}>
+            Move to another list
+          </button>
         </div>
       )}
     </div>

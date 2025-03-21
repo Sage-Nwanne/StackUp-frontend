@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL;
 
@@ -12,16 +12,15 @@ const BoardDetails = () => {
     const fetchBoard = async () => {
       try {
         const response = await fetch(`${BASE_URL}/dashboard/${boardId}`, {
-
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
 
         if (!response.ok) {
-          throw new Error('Board not found');
+          throw new Error("Board not found");
         }
 
         const data = await response.json();

@@ -12,7 +12,7 @@ const NavBar = () => {
   const [loading, setLoading] = useState(false);
 
   const handleSignOut = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setUser(null);
     navigate('/');  // Redirect to the home page after signing out
   };
@@ -93,14 +93,26 @@ const NavBar = () => {
               <li><Link to="/dashboard">Dashboard</Link></li>
               <li><Link to="/create">Create Board</Link></li>
               <li>
-                <button className="sign-out-btn" onClick={handleSignOut}>Log Out</button>
+                <button className="sign-out-btn" onClick={handleSignOut}>
+                  Log Out
+                </button>
               </li>
             </>
           ) : (
             <>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/sign-in"><button className="sign-in-btn">Sign In</button></Link></li>
-              <li><Link to="/sign-up"><button className="sign-up-btn">Sign Up</button></Link></li>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/sign-in">
+                  <button className="sign-in-btn">Sign In</button>
+                </Link>
+              </li>
+              <li>
+                <Link to="/sign-up">
+                  <button className="sign-up-btn">Sign Up</button>
+                </Link>
+              </li>
             </>
           )}
         </ul>
