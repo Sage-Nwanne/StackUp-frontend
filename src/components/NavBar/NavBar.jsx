@@ -14,7 +14,7 @@ const NavBar = () => {
   const handleSignOut = () => {
     localStorage.removeItem("token");
     setUser(null);
-    navigate("/"); // Redirect to the home page after signing out
+    navigate('/');  // Redirect to the home page after signing out
   };
 
   // Fetch boards based on the search query
@@ -53,13 +53,45 @@ const NavBar = () => {
     <nav className="navbar">
       <div className="nav-container">
         <Link to="/" className="logo">StackUp</Link>
+
+        {/* Global Search Bar */}
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search boards..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="search-input"
+          />
+
+          {loading && <div className="loading">Loading...</div>}
+
+          {query && results.length > 0 && (
+            <div className="search-results">
+              {results.map((board) => (
+                <div
+                  key={board._id}
+                  className="search-item"
+                  onClick={() => handleBoardClick(board._id)}
+                >
+                  <h4>{board.name}</h4>
+                  <p>{board.description}</p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {query && results.length === 0 && !loading && (
+            <div className="no-results">No boards found</div>
+          )}
+        </div>
+
         <ul className="nav-links">
           {user ? (
             <>
               <li>Welcome, {user.username}</li>
               <li><Link to="/dashboard">Dashboard</Link></li>
               <li><Link to="/create">Create Board</Link></li>
-              <li><Link to="/search">Board Search</Link></li>
               <li>
                 <button className="sign-out-btn" onClick={handleSignOut}>
                   Log Out
