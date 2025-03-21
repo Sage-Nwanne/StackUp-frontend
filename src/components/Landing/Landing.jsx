@@ -17,7 +17,7 @@ const Landing = () => {
             <Link to="/sign-in">Sign In</Link>
           </button>
         ) : (
-          <button className="cta-button"><Link to="/board/new">Create a Board</Link></button>
+          <button className="cta-button"><Link to="/create">Create a Board</Link></button>
         )}
       </div>
       <div

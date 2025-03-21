@@ -56,18 +56,12 @@ const App = () => {
   };
   
 
-  const handleDeleteBoard = async (boardId) => {
-   const deletedBoard = await boardService.deleteBoard(boardId);
-    setBoards(boards.filter((board) => board._id !== boardId));
-    navigate("/dashboard");
-  };
-
   return (
     <DndProvider backend={HTML5Backend}>
 
         <NavBar user={user} />
         <Routes>
-        <Route path="/" element={ <Landing /> } />
+          <Route path="/" element={<Landing />}/>
           <Route path="/dashboard" element={user ? <Dashboard boards={boards} /> : <SignInForm />} />
           <Route path="/sign-up" element={<SignUpForm />} />
           <Route path="/sign-in" element={<SignInForm />} />
