@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 const BoardForm = (props) => {
   const { boardId } = useParams();
   const [formData, setFormData] = useState({
-    name: " ",
+    name: "",
   });
 
   const handleChange = (evt) => {

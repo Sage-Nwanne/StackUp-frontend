@@ -5,9 +5,9 @@ import * as stackUpService from "../../services/StackUpService.js";
 import CardForm from "../CardForm/CardForm.jsx";
 
 const CardDetails = () => {
+  const { cardId } = useParams();
   const [card, setCard] = useState(null);
 
-  const { cardId } = useParams();
 
   const handleAddText = async (cardFormData) => {
     const newCard = await stackUpService.createCard(cardId, cardFormData);
