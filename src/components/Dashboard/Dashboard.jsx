@@ -7,9 +7,10 @@ import {index, deleteBoard,} from "../../services/boardService";
 const Dashboard = (props) => {
   const { user } = useContext(UserContext);
   const [selectedBoardId, setSelectedBoardId] = useState(null);
+  const [boards, setBoards] = useState([]);
   
   const [searchTerm, setSearchTerm] = useState('');  // Local search query
-  const [filteredBoards, setFilteredBoards] = useState(props.boards);  // Filtered boards
+  const [filteredBoards, setFilteredBoards] = useState(boards);  // Filtered boards
  // Fetch boards when the component mounts or when user changes
  useEffect(() => {
   if (user) {
@@ -18,11 +19,11 @@ const Dashboard = (props) => {
 }, [user]); // Runs when the user is available
 useEffect(() => {
   // Filter boards based on the search term
-  const filtered = props.boards.filter((board) =>
+  const filtered = boards.filter((board) =>
     board.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
   setFilteredBoards(filtered);
-}, [searchTerm, props.boards]);
+}, [searchTerm, boards]);
 
 const fetchBoards = async () => {
   try {

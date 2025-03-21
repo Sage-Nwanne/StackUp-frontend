@@ -5,11 +5,10 @@ import List from "../List/List";
 
 const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL;
 
-const BoardDetails = (props) => {
-  const { boardId } = useParams();
-  const [board, setBoard] = useState(null);
-  const [error, setError] = useState(null);
-
+const BoardDetails = () => {
+    const { boardId } = useParams();
+    const [board, setBoard] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchBoard = async () => {
@@ -69,42 +68,18 @@ const BoardDetails = (props) => {
     if (error) return <div>Error: {error}</div>;
     if (!board) return <div>Loading board details...</div>;
 
-  return (
-    <div>
-      <h1>{board.name} <button><Link to={`/board/${boardId}/edit`}>Rename Board</Link></button></h1>
-      <div>
-        {board.lists?.length > 0 ? (
-          board.lists.map((list) => (
-            <div key={list._id}>
-              <h3>{list.name}</h3>
-              <div>
-                {list.cards?.length > 0 ? (
-                  list.cards.map((card) => (
-                    <div key={card._id}>
-                      <h4>{card.name}</h4>
-                    </div>
-                  ))
+    return (
+        <div>
+            <h2>{board.name}</h2>
+            <div className="board-container">
+                {board.lists?.length > 0 ? (
+                    board.lists.map((list) => <List key={list._id} list={list} onMoveCard={handleMoveCard} />)
                 ) : (
-                  <>
-                  <h2>No cards in this list...yet</h2>
-                  <button >Add Card</button>
-                  </>
-                  
+                    <p>No lists found on this board</p>
                 )}
-              </div>
             </div>
-          ))
-        ) : (
-          <>
-          <p>No lists found on this board...yet</p>
-          <button >Add List</button>
-          </>
-        )}
-      <button onClick={() => props.handleDeleteBoard(boardId) }>Delete Board</button>
-      </div>
-    </div>
-    
-  );
+        </div>
+    );
 };
 
 export default BoardDetails;
