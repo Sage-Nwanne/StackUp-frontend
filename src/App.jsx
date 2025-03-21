@@ -49,20 +49,25 @@ const App = () => {
   };
 
   const handleUpdateBoard = async (boardId, formData) => {
+    console.log(formData)
     const updatedBoard = await boardService.update(boardId, formData);
     setBoards(boards.map((board) => (boardId === board._id ? updatedBoard : board)));
     navigate("/dashboard");
   };
+  
 
   return (
     <DndProvider backend={HTML5Backend}>
 
         <NavBar user={user} />
         <Routes>
-          <Route path="/" element={user ? <Dashboard boards={boards} /> : <SignInForm />} />
+          <Route path="/dashboard" element={user ? <Dashboard boards={boards} /> : <SignInForm />} />
           <Route path="/sign-up" element={<SignUpForm />} />
           <Route path="/sign-in" element={<SignInForm />} />
           <Route path="/dashboard/:boardId" element={<BoardDetails />} />
+          <Route path="/dashboard/:boardId/edit" element={<BoardForm boards={boards} handleUpdateBoard={handleUpdateBoard} />} />
+          <Route path="/create" element={<BoardForm handleCreateBoard={handleCreateBoard} />}/>
+
         </Routes>
     
     </DndProvider>

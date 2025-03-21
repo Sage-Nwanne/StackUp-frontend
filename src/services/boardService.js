@@ -38,10 +38,10 @@ export const create = async (board) => {
 };
 
 // Update a board
-export const update = async (board) => {
-  return await fetchWithAuth(`${BASE_URL}/${board.id}`, {
+export const update = async (boardId, FormData) => {
+  return await fetchWithAuth(`${BASE_URL}/${boardId}`, {
     method: "PUT",
-    body: JSON.stringify(board),
+    body: JSON.stringify(FormData),
   });
 };
 
