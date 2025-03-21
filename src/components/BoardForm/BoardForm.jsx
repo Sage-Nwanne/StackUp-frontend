@@ -32,7 +32,7 @@ const BoardForm = (props) => {
           value={formData.name}
           onChange={handleChange}
         />
-      <button type="submit">Add Board</button>
+      <button type="submit">{boardId ? "Update Board" : "Add Board"}</button>
       </form>
     </main>
   );

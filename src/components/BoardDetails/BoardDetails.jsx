@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
 
 const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL;
 
-const BoardDetails = () => {
+const BoardDetails = (props) => {
   const { boardId } = useParams();
   const [board, setBoard] = useState(null);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     const fetchBoard = async () => {
@@ -41,9 +43,13 @@ const BoardDetails = () => {
     return <div>Loading board details...</div>;
   }
 
+
+
+
+
   return (
     <div>
-      <h2>{board.name}</h2>
+      <h1>{board.name} <button><Link to={`/board/${boardId}/edit`}>Rename Board</Link></button></h1>
       <div>
         {board.lists?.length > 0 ? (
           board.lists.map((list) => (
@@ -57,16 +63,25 @@ const BoardDetails = () => {
                     </div>
                   ))
                 ) : (
-                  <p>No cards in this list</p>
+                  <>
+                  <h2>No cards in this list...yet</h2>
+                  <button >Add Card</button>
+                  </>
+                  
                 )}
               </div>
             </div>
           ))
         ) : (
-          <p>No lists found on this board</p>
+          <>
+          <p>No lists found on this board...yet</p>
+          <button >Add List</button>
+          </>
         )}
+      <button onClick={() => props.handleDeleteBoard(boardId) }>Delete Board</button>
       </div>
     </div>
+    
   );
 };
 

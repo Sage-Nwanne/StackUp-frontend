@@ -51,6 +51,12 @@ const App = () => {
     navigate("/dashboard");
   };
 
+  const handleDeleteBoard = async (boardId) => {
+   const deletedBoard = await boardService.deleteBoard(boardId);
+    setBoards(boards.filter((board) => board._id !== boardId));
+    navigate("/dashboard");
+  };
+
   return (
     <>
       <NavBar selectedBoardId={selectedBoardId} />
@@ -72,11 +78,12 @@ const App = () => {
         />
         <Route path="/board/new" element={<BoardForm handleCreateBoard={handleCreateBoard} />}/>
         <Route path="/board/:boardId/edit" element={<BoardForm handleUpdateBoard={handleUpdateBoard} />} />
+        <Route path="/dashboard/:boardId" element={<BoardDetails handleDeleteBoard={handleDeleteBoard} />} />
+
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/sign-out" />
 
-        <Route path="/dashboard/:boardId" element={<BoardDetails />} />
       </Routes>
     </>
   );

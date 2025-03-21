@@ -91,7 +91,7 @@ const NavBar = () => {
             <>
               <li>Welcome, {user.username}</li>
               <li><Link to="/dashboard">Dashboard</Link></li>
-              <li><Link to="/create">Create Board</Link></li>
+              <li><Link to="/board/new">Create Board</Link></li>
               <li>
                 <button className="sign-out-btn" onClick={handleSignOut}>
                   Log Out
