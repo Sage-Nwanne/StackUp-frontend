@@ -16,8 +16,8 @@ const fetchWithAuth = async (url, options = {}) => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
     return response.json(); // Parse response as JSON
+
   } catch (error) {
     console.error("API request error:", error);
     throw error;
