@@ -2,15 +2,14 @@ import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
-import {index, deleteBoard, update} from "../../services/boardService";
+import {index, deleteBoard,} from "../../services/boardService";
 
 const Dashboard = (props) => {
-  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  const [selectedBoardId, setSelectedBoardId] = useState(null);
+  
   const [searchTerm, setSearchTerm] = useState('');  // Local search query
-    const { user } = useContext(UserContext);
-    const [selectedBoardId, setSelectedBoardId] = useState(null);
-    const [boards, setBoards] = useState(props.boards);
-    const [filteredBoards, setFilteredBoards] = useState(props.boards);
+  const [filteredBoards, setFilteredBoards] = useState(props.boards);  // Filtered boards
  // Fetch boards when the component mounts or when user changes
  useEffect(() => {
   if (user) {

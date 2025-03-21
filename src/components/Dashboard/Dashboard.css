@@ -1,0 +1,57 @@
+/* Dashboard Container */
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Local Search */
+.local-search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.local-search-container input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.local-search-container input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Board List */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li.board-item {
+  margin-bottom: 10px;
+}
+
+li.board-item a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+li.board-item a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* No Boards Found */
+li.no-boards {
+  color: #888;
+  font-size: 16px;
+}
