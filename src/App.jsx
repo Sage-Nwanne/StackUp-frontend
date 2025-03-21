@@ -67,6 +67,7 @@ const App = () => {
 
         <NavBar user={user} />
         <Routes>
+        <Route path="/" element={ <Landing /> } />
           <Route path="/dashboard" element={user ? <Dashboard boards={boards} /> : <SignInForm />} />
           <Route path="/sign-up" element={<SignUpForm />} />
           <Route path="/sign-in" element={<SignInForm />} />
