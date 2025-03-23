@@ -37,6 +37,7 @@ export const create = async (board) => {
   });
 };
 
+
 // Update a board
 export const update = async (boardId, FormData) => {
   return await fetchWithAuth(`${BASE_URL}/${boardId}`, {

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { moveCard } from "../../services/cardService"; // Import moveCard function
 import List from "../List/List";
+import {create} from "../../services/boardService";
 
 const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL;
 
@@ -72,10 +73,25 @@ const BoardDetails = () => {
         <div>
             <h2>{board.name}</h2>
             <div className="board-container">
-                {board.lists?.length > 0 ? (
-                    board.lists.map((list) => <List key={list._id} list={list} onMoveCard={handleMoveCard} />)
+                {board.lists.length > 0 ? (
+                    board.lists.map((list) => (
+                        <div key={list._id}>
+                            <List list={list} onMoveCard={handleMoveCard} />
+                            <Link 
+                                to={`/dashboard/${board._id}/${list._id}/CardForm`}
+                                className="add-card-button"
+                            >
+                                Add Card
+                            </Link>
+                        </div>
+                    ))
                 ) : (
-                    <p>No lists found on this board</p>
+                    <>
+                        <p>No lists found on this board</p>
+                        <button>
+                            <Link to={`/dashboard/${board._id}/CardForm`}>Add Card</Link>
+                        </button>
+                    </>
                 )}
             </div>
         </div>
