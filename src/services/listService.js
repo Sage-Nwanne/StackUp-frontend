@@ -1,58 +1,58 @@
-// const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/dashboard/${boardId}`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/dashboard`;
 
-// // Function to handle API requests with fetch
-// const fetchWithAuth = async (url, options = {}) => {
-//   const token = localStorage.getItem("token");
+// Function to handle API requests with fetch
+const fetchWithAuth = async (url, options = {}) => {
+  const token = localStorage.getItem("token");
 
-//   const headers = {
-//     "Content-Type": "application/json",
-//     Authorization: `Bearer ${token}`,
-//     ...options.headers, // Allow overriding headers
-//   };
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+    ...options.headers, // Allow overriding headers
+  };
 
-//   try {
-//     const response = await fetch(url, { ...options, headers });
+  try {
+    const response = await fetch(url, { ...options, headers });
 
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! Status: ${response.status}`);
-//     }
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
 
-//     return response.json(); // Parse response as JSON
-//   } catch (error) {
-//     console.error("API request error:", error);
-//     throw error;
-//   }
-// };
+    return response.json(); // Parse response as JSON
+  } catch (error) {
+    console.error("API request error:", error);
+    throw error;
+  }
+};
 
-// // Get all lists of board
-// export const index = async () => {
-//   return await fetchWithAuth(BASE_URL);
-// };
+// Get all lists of board
+export const index = async (boardId) => {
+  return await fetchWithAuth(`${BASE_URL}/${boardId}`);
+};
 
-// // Create a new list on board
-// export const create = async (list) => {
-//   return await fetchWithAuth(BASE_URL, {
-//     method: "POST",
-//     body: JSON.stringify(list),
-//   });
-// };
+// Create a new list on board
+export const create = async (boardId, listName) => {
+  return await fetchWithAuth(`${BASE_URL}/${boardId}`, {
+    method: "POST",
+    body: JSON.stringify({name: listName}),
+  });
+};
 
-// // Update a list on board
-// export const update = async (list) => {
-//   return await fetchWithAuth(`${BASE_URL}/${list.id}`, {
-//     method: "PUT",
-//     body: JSON.stringify(list),
-//   });
-// };
+// Update a list on board
+export const update = async (list) => {
+  return await fetchWithAuth(`${BASE_URL}/${list.id}`, {
+    method: "PUT",
+    body: JSON.stringify(list),
+  });
+};
 
-// // Delete a list -> pick up here...
-// export const deleteList = async (id) => {
-//   return await fetchWithAuth(`${BASE_URL}/${id}`, {
-//     method: "DELETE",
-//   });
-// };
+// Delete a list -> pick up here...
+export const deleteList = async (id) => {
+  return await fetchWithAuth(`${BASE_URL}/${id}`, {
+    method: "DELETE",
+  });
+};
 
-// // Get timeline data for a board
-// export const getTimeline = async (boardId) => {
-//   return await fetchWithAuth(`${BASE_URL}/${boardId}/timeline`);
-// };
+// Get timeline data for a board
+export const getTimeline = async (boardId) => {
+  return await fetchWithAuth(`${BASE_URL}/${boardId}/timeline`);
+};

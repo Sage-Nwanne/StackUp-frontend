@@ -68,7 +68,7 @@ const App = () => {
           <Route path="/dashboard/:boardId" element={<BoardDetails />} />
           <Route path="/dashboard/:boardId/edit" element={<BoardForm boards={boards} handleUpdateBoard={handleUpdateBoard} />} />
           <Route path="/create" element={<BoardForm handleCreateBoard={handleCreateBoard} />}/>
-
+          
         </Routes>
     
     </DndProvider>
