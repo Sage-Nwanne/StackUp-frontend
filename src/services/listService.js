@@ -38,10 +38,10 @@ export const create = async (boardId, listName) => {
 };
 
 // Update a list on board
-export const update = async (list) => {
-  return await fetchWithAuth(`${BASE_URL}/${list.id}`, {
+export const update = async (boardId, listId, newName) => {
+  return await fetchWithAuth(`${BASE_URL}/${boardId}/${listId}`, {
     method: "PUT",
-    body: JSON.stringify(list),
+    body: JSON.stringify({name: newName}),
   });
 };
 
