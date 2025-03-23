@@ -46,8 +46,8 @@ export const update = async (boardId, listId, newName) => {
 };
 
 // Delete a list -> pick up here...
-export const deleteList = async (id) => {
-  return await fetchWithAuth(`${BASE_URL}/${id}`, {
+export const deleteList = async (boardId, listId) => {
+  return await fetchWithAuth(`${BASE_URL}/${boardId}/${listId}`, {
     method: "DELETE",
   });
 };
