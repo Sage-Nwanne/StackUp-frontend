@@ -32,34 +32,33 @@ const BoardDetails = () => {
 
     const handleMoveCard = async (cardId, newListId) => {
         try {
+            // Update the backend first
             const updatedCard = await moveCard(boardId, cardId, newListId);
-
+    
             if (updatedCard && updatedCard.card) {
-                setBoard((prevBoard) => ({
-                    ...prevBoard,
-                    lists: prevBoard.lists.map((list) => {
+                // Update the local state to reflect the card being moved
+                setLists((prevLists) => {
+                    // Remove the card from its current list
+                    const updatedLists = prevLists.map((list) => {
                         if (list._id === newListId) {
-                            if (!list.cards.some((card) => card._id === cardId)) {
-                                return {
-                                    ...list,
-                                    cards: [...list.cards, updatedCard.card],
-                                };
-                            }
-                        } else if (list.cards.some((card) => card._id === cardId)) {
+                            // If the list matches the new list, add the card to it
+                            return { ...list, cards: [...list.cards, updatedCard.card] };
+                        } else {
+                            // Remove the card from the original list
                             return {
                                 ...list,
                                 cards: list.cards.filter((card) => card._id !== cardId),
                             };
                         }
-                        return list;
-                    }),
-                }));
+                    });
+    
+                    return updatedLists;
+                });
             }
         } catch (error) {
             console.error("Error moving card:", error);
         }
     };
-
     const handleAddList = async () => {
         try {
             const listName = "New List";
@@ -133,7 +132,6 @@ const BoardDetails = () => {
                             ) : (
                                 <div>
                                     <h3 onClick={() => handleEditListClick(list._id, list.name)}>
-                                        {list.name}
                                     </h3>
                                 </div>
                             )}
