@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { moveCard } from "../../services/cardService"; // Import moveCard function
 import List from "../List/List";
-import { create, index } from "../../services/listService.js";
+import { create, index, update } from "../../services/listService.js";
 
 const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL;
 
@@ -10,6 +10,8 @@ const BoardDetails = () => {
     const { boardId } = useParams();
     const [board, setBoard] = useState(null);
     const [lists, setLists] = useState([]);
+    const [editListId, setEditListId] = useState(null);
+    const [editedListName, setEditedListName] = useState("");
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -92,21 +94,65 @@ const BoardDetails = () => {
       }
     };
 
+    const handleEditListClick = (listId, currentListName) => {
+      setEditListId(listId);
+      setEditedListName(currentListName);
+    };
+
+    const handleSaveEdit = async (listId) => {
+      try {
+        const updatedList = await update(listId, editedListName);
+        setLists((prevList) => prevList.map((list) =>
+        list._id === listId ? {...list, name: updatedList.name}: list))
+        setEditListId(null);
+      } catch (error) {
+        console.error("Error editing list title", error);
+      }
+    }
+
+    const handleCancelEdit = () => {
+      setEditListId(null);
+    }
+
     if (error) return <div>Error: {error}</div>;
     if (!board) return <div>Loading board details...</div>;
 
     return (
-        <div>
-            <h2>{board.name}</h2>
-            <button onClick={handleAddList}>Add List</button>
-            <div className="board-container">
-                {lists?.length > 0 ? (
-                    lists.map((list) => <List key={list._id} list={list} onMoveCard={handleMoveCard} />)
+      <div>
+        <h2>{board.name}</h2>
+        <button onClick={handleAddList}>Add List</button>
+        <div className="board-container">
+          {lists?.length > 0 ? (
+            lists.map((list) => (
+              <div key={list._id}>
+                {editListId === list._id ? (
+                  <div>
+                    <input
+                      type="text"
+                      value={editedListName}
+                      onChange={(e) => setEditedListName(e.target.value)}
+                    />
+                    <button onClick={() => handleSaveEdit(list._id)}>
+                      Save
+                    </button>
+                    <button onClick={handleCancelEdit}>Cancel</button>
+                  </div>
                 ) : (
-                    <p>No lists found on this board</p>
+                  <div>
+                    <h3
+                      onClick={() => handleEditListClick(list._id, list.name)}
+                    >
+                      {list.name}
+                    </h3>
+                  </div>
                 )}
-            </div>
+              </div>
+            ))
+          ) : (
+            <p>No lists found on this board</p>
+          )}
         </div>
+      </div>
     );
 };
 
