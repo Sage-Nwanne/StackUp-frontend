@@ -11,7 +11,6 @@ const List = ({ list, onMoveCard }) => {
 
     return (
         <div ref={drop} className="list">
-            <h3>{list.name}</h3>
             {list.cards.map((card) => (
                 <Card key={card._id} card={card} />
             ))}

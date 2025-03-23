@@ -27,8 +27,15 @@ const fetchWithAuth = async (url, options = {}) => {
 // Get all boards
 export const index = async () => {
   return await fetchWithAuth(BASE_URL);
+
 };
 
+export const indexOne = async (boardId) => {
+  const response = await fetchWithAuth(`${BASE_URL}/${boardId}`, {
+    method: "GET",
+});
+    return response;
+};
 // Create a new board
 export const create = async (board) => {
   return await fetchWithAuth(BASE_URL, {
