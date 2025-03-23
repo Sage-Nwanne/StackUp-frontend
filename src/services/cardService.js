@@ -23,7 +23,13 @@ const fetchWithAuth = async (url, options = {}) => {
       throw error;
     }
   };
-    
+
+
+// Show a card on list - cardService.show(cardId)
+export const show = async (cardId, boardId, listId) => {
+    return await fetchWithAuth(`${BASE_URL}/${boardId}/${listId}/${cardId}`);
+  };
+
 //Create a card on list - cardService.createCard(boardId, listId, formData)
 
 export const createCard = async (boardId, listId, formData) => {
