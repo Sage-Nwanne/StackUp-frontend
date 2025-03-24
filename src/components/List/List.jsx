@@ -11,8 +11,11 @@ const List = ({ list, onMoveCard }) => {
     });
 
     return (
-        <div ref={drop} className={`list ${isOver ? "over" : ""}`}>
-            <h3>{list.name}</h3>
+        <div 
+            ref={drop} 
+            className={`list ${isOver ? "over" : ""}`}
+            style={{ minHeight: '200px', padding: '10px', border: '1px solid #ccc' }} // Ensure the div has some size
+        >
             {list.cards.map((card) => (
                 <Card key={card._id} card={card} />
             ))}
