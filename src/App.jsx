@@ -17,6 +17,9 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import * as boardService from "./services/boardService";
 import Landing from "./components/Landing/Landing";
+import CardForm from "./components/CardForm/CardForm.jsx";
+import CardDetails from "./components/CardDetails/CardDetails.jsx";
+// import ListForm from "./components/ListForm/ListForm.jsx";
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -63,12 +66,15 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Landing />}/>
           <Route path="/dashboard" element={user ? <Dashboard boards={boards} /> : <SignInForm />} />
+          {/* <Route path="/dashboard/:boardId/:ListForm" element={<ListForm listForm={lists} />} /> */}
+          <Route path="/dashboard/:boardId/CardForm" element={<CardForm  />} />
+          <Route path="/dashboard/:boardId/:listId/:cardId" element={<CardDetails />} />
+          <Route path="/dashboard/:boardId/:listId/edit" element={<CardForm  />} />
           <Route path="/sign-up" element={<SignUpForm />} />
           <Route path="/sign-in" element={<SignInForm />} />
           <Route path="/dashboard/:boardId" element={<BoardDetails />} />
           <Route path="/dashboard/:boardId/edit" element={<BoardForm boards={boards} handleUpdateBoard={handleUpdateBoard} />} />
           <Route path="/create" element={<BoardForm handleCreateBoard={handleCreateBoard} />}/>
-          
         </Routes>
     
     </DndProvider>

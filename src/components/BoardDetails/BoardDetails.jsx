@@ -121,6 +121,7 @@ const BoardDetails = () => {
     return (
         <div>
             <h2>{board.name}</h2>
+
             <button onClick={handleAddList}>Add List</button>
             <div className="board-container" style={{ display: "flex", gap: "20px" }}>
                 {lists.length > 0 ? (
@@ -151,11 +152,16 @@ const BoardDetails = () => {
                                 </>
                             )}
                             <List list={list} onMoveCard={handleMoveCard} />
-                            <button onClick={() => handleDelete(list._id)}>Delete</button>
+
                         </div>
                     ))
                 ) : (
-                    <p>No lists found on this board</p>
+                    <>
+                        <p>No lists found on this board</p>
+                        <button>
+                            <Link to={`/dashboard/${board._id}/CardForm`}>Add Card</Link>
+                        </button>
+                    </>
                 )}
             </div>
         </div>
