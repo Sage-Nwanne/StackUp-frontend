@@ -74,3 +74,128 @@
   height: 2px;
   transform: rotate(45deg);
 }
+
+/* ====== Global Styles ====== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f5f7;
+  color: #172b4d;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* ====== Navbar Styles ====== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #026aa7;
+  color: white;
+  padding: 15px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  transition: 0.3s;
+}
+
+.navbar a:hover {
+  opacity: 0.8;
+}
+
+/* ====== Board Container ====== */
+.board {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px;
+}
+
+/* ====== List Styles ====== */
+.list {
+  background: #ebecf0;
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.list:hover {
+  transform: scale(1.03);
+}
+
+.list-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #172b4d;
+}
+
+/* ====== Card Styles ====== */
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ====== Button Styles ====== */
+.button {
+  background: #5aac44;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background: #519839;
+}
+
+/* ====== Form and Input Styles ====== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input:focus {
+  border-color: #026aa7;
+  box-shadow: 0 0 5px rgba(2, 106, 167, 0.5);
+}
+
+/* ====== Responsive Styles ====== */
+@media (max-width: 768px) {
+  .board {
+    flex-direction: column;
+  }
+}
