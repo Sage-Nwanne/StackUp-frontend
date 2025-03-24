@@ -12,7 +12,6 @@ const BoardDetails = () => {
     const { boardId } = useParams();
     const [board, setBoard] = useState(null);
     const [lists, setLists] = useState([]);
-    const [cards, setCards] = useState([]);
     const [editListId, setEditListId] = useState(null);
     const [editedListName, setEditedListName] = useState("");
     const [error, setError] = useState(null);
@@ -34,27 +33,21 @@ const BoardDetails = () => {
 
     const handleMoveCard = async (cardId, newListId) => {
         try {
-            // Find the current list of the card to be moved
             const currentList = lists.find((list) => list.cards.some((card) => card._id === cardId));
 
-            // If the card is already in the new list, do nothing
             if (currentList && currentList._id === newListId) {
-                console.log("Card is already in this list");
-                return; // Early return to prevent unnecessary move
+                return;
             }
 
             // Update the backend first
             const updatedCard = await moveCard(boardId, cardId, newListId);
 
             if (updatedCard && updatedCard.card) {
-                // Update the local state to reflect the card being moved
                 setLists((prevLists) => {
                     const updatedLists = prevLists.map((list) => {
                         if (list._id === newListId) {
-                            // If the list matches the new list, add the card to it
                             return { ...list, cards: [...list.cards, updatedCard.card] };
                         } else if (list._id === currentList._id) {
-                            // Remove the card from the original list
                             return {
                                 ...list,
                                 cards: list.cards.filter((card) => card._id !== cardId),
@@ -151,6 +144,7 @@ const BoardDetails = () => {
                             ) : (
                                 <>
                                     <h3 onClick={() => handleEditListClick(list._id, list.name)}>{list.name}</h3>
+                                
                                     <button onClick={() => handleAddCard(list._id)}>Add Card </button>
                                 </>
                             )}
@@ -163,10 +157,7 @@ const BoardDetails = () => {
                     ))
                 ) : (
                     <>
-                        <p>No lists found on this board</p>
-                        <button>
-                            <Link to={`/dashboard/${board._id}/CardForm`}>Add Card</Link>
-                        </button>
+                        <p>No Lists! Click the button above to add a list to this board</p>
                     </>
                 )}
             </div>
