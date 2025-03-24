@@ -4,6 +4,7 @@ import { moveCard } from "../../services/cardService"; // Import moveCard functi
 import List from "../List/List";
 import { create, update, deleteList } from "../../services/listService.js";
 import { indexOne } from "../../services/boardService.js";
+import { Title } from "chart.js";
 
 
 
@@ -32,24 +33,35 @@ const BoardDetails = () => {
 
     const handleMoveCard = async (cardId, newListId) => {
         try {
+            // Find the current list of the card to be moved
+            const currentList = lists.find((list) =>
+                list.cards.some((card) => card._id === cardId)
+            );
+    
+            // If the card is already in the new list, do nothing
+            if (currentList && currentList._id === newListId) {
+                console.log("Card is already in this list");
+                return; // Early return to prevent unnecessary move
+            }
+    
             // Update the backend first
             const updatedCard = await moveCard(boardId, cardId, newListId);
     
             if (updatedCard && updatedCard.card) {
                 // Update the local state to reflect the card being moved
                 setLists((prevLists) => {
-                    // Remove the card from its current list
                     const updatedLists = prevLists.map((list) => {
                         if (list._id === newListId) {
                             // If the list matches the new list, add the card to it
                             return { ...list, cards: [...list.cards, updatedCard.card] };
-                        } else {
+                        } else if (list._id === currentList._id) {
                             // Remove the card from the original list
                             return {
                                 ...list,
                                 cards: list.cards.filter((card) => card._id !== cardId),
                             };
                         }
+                        return list;
                     });
     
                     return updatedLists;
@@ -106,35 +118,32 @@ const BoardDetails = () => {
     }
     if (error) return <div>Error: {error}</div>;
     if (!board) return <div>Loading board details...</div>;
-
     return (
         <div>
             <h2>{board.name}</h2>
             <button onClick={handleAddList}>Add List</button>
-            <div className="board-container">
-                {lists?.length > 0 ? (
+            <div className="board-container" style={{ display: "flex", gap: "20px" }}>
+                {lists.length > 0 ? (
                     lists.map((list) => (
-                        <div key={list._id}>
-                             <List list={list} onMoveCard={handleMoveCard} />
+                        <div key={list._id} className="list-container" style={{ width: "250px" }}>
                             {editListId === list._id ? (
                                 <div>
                                     <input
                                         type="text"
                                         value={editedListName}
                                         onChange={(e) => setEditedListName(e.target.value)}
+                                        autoFocus
                                     />
-                                    <button onClick={() => handleSaveEdit(list._id)}>
-                                        Rename
-                                    </button>
+                                    <button onClick={() => handleSaveEdit(list._id)}>Save</button>
                                     <button onClick={handleCancelEdit}>Cancel</button>
-                                    <button onClick={() => handleDelete(list._id)}>Delete</button>
                                 </div>
                             ) : (
-                                <div>
-                                    <h3 onClick={() => handleEditListClick(list._id, list.name)}>
-                                    </h3>
-                                </div>
+                                <h3 onClick={() => handleEditListClick(list._id, list.name)}>
+                                    {list.name}
+                                </h3>
                             )}
+                            <List list={list} onMoveCard={handleMoveCard} />
+                            <button onClick={() => handleDelete(list._id)}>Delete</button>
                         </div>
                     ))
                 ) : (
