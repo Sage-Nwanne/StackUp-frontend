@@ -10,20 +10,21 @@ const Landing = () => {
   return (
     <main className="landingTitle">
       <div className="contentLeft">
-        <h1>Stack Up</h1>
+        <h1>StackUp</h1>
         <p>Plan and Produce Perfection</p>
         {!user ? (
           <button className="cta-button">
             <Link to="/sign-in">Sign In</Link>
           </button>
         ) : (
-          <button className="cta-button"><Link to="/create">Create a Board</Link></button>
+          <button className="cta-button">
+            <Link to="/create">Create a Board</Link>
+          </button>
         )}
       </div>
-      <div
-        className="imagePlaceholder"
-        aria-label="Placeholder for hero image"
-      />
+      <div className="StackupLogo" aria-label="Placeholder for hero image">
+        <img src="../../public/StackupLogo.png" alt="" />
+      </div>
     </main>
   );
 };
