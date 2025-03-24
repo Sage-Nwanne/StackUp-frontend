@@ -18,6 +18,7 @@ const List = ({ list, onMoveCard }) => {
         >
             {list.cards.map((card) => (
                 <Card key={card._id} card={card} />
+                
             ))}
         </div>
     );
