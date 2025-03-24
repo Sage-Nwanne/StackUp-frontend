@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { moveCard } from "../../services/cardService"; // Import moveCard function
 import List from "../List/List";
 import { create, update, deleteList } from "../../services/listService.js";
 import { indexOne } from "../../services/boardService.js";
+import { createCard } from "../../services/cardService.js";
 import { Title } from "chart.js";
 
-
-
 const BoardDetails = () => {
+    const navigate = useNavigate();
     const { boardId } = useParams();
     const [board, setBoard] = useState(null);
     const [lists, setLists] = useState([]);
+    const [cards, setCards] = useState([]);
     const [editListId, setEditListId] = useState(null);
     const [editedListName, setEditedListName] = useState("");
     const [error, setError] = useState(null);
@@ -20,33 +21,31 @@ const BoardDetails = () => {
         const fetch = async () => {
             try {
                 const boardResponse = await indexOne(boardId);
-               
+
                 setBoard(boardResponse);
                 setLists(boardResponse.lists);
             } catch (error) {
                 console.error("Can't fetch board data", error);
             }
         };
-        
+
         fetch();
-    }, [boardId])
+    }, [boardId]);
 
     const handleMoveCard = async (cardId, newListId) => {
         try {
             // Find the current list of the card to be moved
-            const currentList = lists.find((list) =>
-                list.cards.some((card) => card._id === cardId)
-            );
-    
+            const currentList = lists.find((list) => list.cards.some((card) => card._id === cardId));
+
             // If the card is already in the new list, do nothing
             if (currentList && currentList._id === newListId) {
                 console.log("Card is already in this list");
                 return; // Early return to prevent unnecessary move
             }
-    
+
             // Update the backend first
             const updatedCard = await moveCard(boardId, cardId, newListId);
-    
+
             if (updatedCard && updatedCard.card) {
                 // Update the local state to reflect the card being moved
                 setLists((prevLists) => {
@@ -63,7 +62,7 @@ const BoardDetails = () => {
                         }
                         return list;
                     });
-    
+
                     return updatedLists;
                 });
             }
@@ -83,7 +82,6 @@ const BoardDetails = () => {
     };
 
     const handleEditListClick = (listId, currentListName) => {
-      
         setEditListId(listId);
         setEditedListName(currentListName);
     };
@@ -92,9 +90,7 @@ const BoardDetails = () => {
         try {
             const updatedList = await update(boardId, listId, editedListName);
             setLists((prevList) =>
-                prevList.map((list) =>
-                    list._id === listId ? { ...list, name: updatedList.name } : list
-                )
+                prevList.map((list) => (list._id === listId ? { ...list, name: updatedList.name } : list))
             );
             setEditListId(null);
         } catch (error) {
@@ -108,14 +104,28 @@ const BoardDetails = () => {
 
     const handleDelete = async (listId) => {
         try {
-            setLists((prevLists) => prevLists.filter((list) => list._id !== listId))
+            setLists((prevLists) => prevLists.filter((list) => list._id !== listId));
             await deleteList(boardId, listId);
-            fetch();
         } catch (error) {
-            console.error("error deleting list", error)
-            
+            console.error("error deleting list", error);
         }
-    }
+    };
+    const handleAddCard = async (listId) => {
+        const cardName = { name: "New Card" };
+        const newCard = await createCard(boardId, listId, cardName);
+
+        setLists((prevLists) => {
+            return prevLists.map((list) => {
+                if (list._id === listId) {
+                    return {
+                        ...list,
+                        cards: [...list.cards, newCard],
+                    };
+                }
+                return list;
+            });
+        });
+    };
     if (error) return <div>Error: {error}</div>;
     if (!board) return <div>Loading board details...</div>;
     return (
@@ -140,19 +150,15 @@ const BoardDetails = () => {
                                 </div>
                             ) : (
                                 <>
-                                    <h3 onClick={() => handleEditListClick(list._id, list.name)}>
-                                        {list.name}
-                                    </h3>
-                                    <Link 
-                                        to={`/dashboard/${board._id}/${list._id}/CardForm`}
-                                        className="add-card-button"
-                                    >
-                                        Add Card
-                                    </Link>
+                                    <h3 onClick={() => handleEditListClick(list._id, list.name)}>{list.name}</h3>
+                                    <button onClick={() => handleAddCard(list._id)}>Add Card </button>
                                 </>
                             )}
+
                             <List list={list} onMoveCard={handleMoveCard} />
 
+                            {/* Delete Button below the list */}
+                            <button onClick={() => handleDelete(list._id)}>Delete List</button>
                         </div>
                     ))
                 ) : (
@@ -166,7 +172,6 @@ const BoardDetails = () => {
             </div>
         </div>
     );
-    
 };
 
 export default BoardDetails;

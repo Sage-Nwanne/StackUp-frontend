@@ -6,7 +6,7 @@ import CardForm from "../CardForm/CardForm.jsx";
 
 const CardDetails = () => {
   const { cardId } = useParams();
-  const [card, setCard] = useState(null);
+  const [card, setCard] = useState([]);
 
 
   useEffect(() => {

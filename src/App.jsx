@@ -67,7 +67,7 @@ const App = () => {
           <Route path="/" element={<Landing />}/>
           <Route path="/dashboard" element={user ? <Dashboard boards={boards} /> : <SignInForm />} />
           {/* <Route path="/dashboard/:boardId/:ListForm" element={<ListForm listForm={lists} />} /> */}
-          <Route path="/dashboard/:boardId/CardForm" element={<CardForm  />} />
+          <Route path="/dashboard/:boardId/:listId" element={<CardForm  />} />
           <Route path="/dashboard/:boardId/:listId/:cardId" element={<CardDetails />} />
           <Route path="/dashboard/:boardId/:listId/edit" element={<CardForm  />} />
           <Route path="/sign-up" element={<SignUpForm />} />
