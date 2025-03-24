@@ -4,7 +4,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 98vw;
+  min-width: 1500px;
   padding: 2rem 10%;
   background-color: #1a1a1a;
   min-height: 500px; /* Changed from 80vh to fixed height */
@@ -45,35 +46,34 @@
   background-color: #2832f1;
 }
 
-.imagePlaceholder {
+.StackupLogo {
   flex: 1;
-  height: 350px; /* Reduced height */
-  background-color: #2a2a2a;
-  border: 2px dashed #404040;
+  height: 200px; /* Reduced height */
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 3rem;
 }
 
-.imagePlaceholder::before,
+/* .imagePlaceholder::before,
 .imagePlaceholder::after {
   content: '';
   position: absolute;
   background-color: #404040;
-}
+} */
 
-.imagePlaceholder::before {
+/* .imagePlaceholder::before {
   width: 2px;
   height: 80%;
   transform: rotate(45deg);
-}
+} */
 
-.imagePlaceholder::after {
+/* .imagePlaceholder::after {
   width: 80%;
   height: 2px;
   transform: rotate(45deg);
-}
+} */
 
 /* ====== Global Styles ====== */
 * {
