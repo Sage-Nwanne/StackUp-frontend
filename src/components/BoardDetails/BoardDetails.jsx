@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { moveCard } from "../../services/cardService"; // Import moveCard function
 import List from "../List/List";
 import { create, update, deleteList } from "../../services/listService.js";
@@ -138,9 +138,17 @@ const BoardDetails = () => {
                                     <button onClick={handleCancelEdit}>Cancel</button>
                                 </div>
                             ) : (
-                                <h3 onClick={() => handleEditListClick(list._id, list.name)}>
-                                    {list.name}
-                                </h3>
+                                <>
+                                    <h3 onClick={() => handleEditListClick(list._id, list.name)}>
+                                        {list.name}
+                                    </h3>
+                                    <Link 
+                                        to={`/dashboard/${board._id}/${list._id}/CardForm`}
+                                        className="add-card-button"
+                                    >
+                                        Add Card
+                                    </Link>
+                                </>
                             )}
                             <List list={list} onMoveCard={handleMoveCard} />
                             <button onClick={() => handleDelete(list._id)}>Delete</button>
@@ -152,7 +160,7 @@ const BoardDetails = () => {
             </div>
         </div>
     );
+    
 };
-
 
 export default BoardDetails;
