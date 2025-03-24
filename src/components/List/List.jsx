@@ -1,29 +1,27 @@
 import { useDrop } from "react-dnd";
 import Card from "../Card/Card";
-import { Link } from "react-router";
+
 const List = ({ list, onMoveCard }) => {
     const [{ isOver }, drop] = useDrop({
-        accept: "CARD",
-        drop: (item) => onMoveCard(item.id, list._id),
+        accept: "CARD", 
+        drop: (item) => onMoveCard(item.id, list._id), 
         collect: (monitor) => ({
-            isOver: monitor.isOver(),
+            isOver: monitor.isOver(), 
         }),
     });
 
     return (
-        <div ref={drop} className="list">
-            <h3>{list.name}</h3>
+        <div 
+            ref={drop} 
+            className={`list ${isOver ? "over" : ""}`}
+            style={{ minHeight: '200px', padding: '10px', border: '1px solid #ccc' }} // Ensure the div has some size
+        >
             {list.cards.map((card) => (
-                <Link 
-                    key={card._id} 
-                    to={`/dashboard/${list.boardId}/${list._id}/${card._id}`}
-                >
-                    <Card card={card} />
-                </Link>
+                <Card key={card._id} card={card} />
+                
             ))}
         </div>
     );
 };
 
 export default List;
-

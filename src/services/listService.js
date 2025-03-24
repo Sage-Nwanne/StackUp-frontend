@@ -1,6 +1,7 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/dashboard`;
 
 // Function to handle API requests with fetch
+// Function to handle API requests with fetch
 const fetchWithAuth = async (url, options = {}) => {
   const token = localStorage.getItem("token");
 
@@ -24,6 +25,7 @@ const fetchWithAuth = async (url, options = {}) => {
   }
 };
 
+
 // Get all lists of board
 export const index = async (boardId) => {
   return await fetchWithAuth(`${BASE_URL}/${boardId}`);
@@ -38,18 +40,19 @@ export const create = async (boardId, listName) => {
 };
 
 // Update a list on board
-export const update = async (list) => {
-  return await fetchWithAuth(`${BASE_URL}/${list.id}`, {
+export const update = async (boardId, listId, newName) => {
+  return await fetchWithAuth(`${BASE_URL}/${boardId}/${listId}`, {
     method: "PUT",
-    body: JSON.stringify(list),
+    body: JSON.stringify({name: newName}),
   });
 };
 
 // Delete a list -> pick up here...
-export const deleteList = async (id) => {
-  return await fetchWithAuth(`${BASE_URL}/${id}`, {
+export const deleteList = async (boardId, listId) => {
+  const response = await fetchWithAuth(`${BASE_URL}/${boardId}/${listId}`, {
     method: "DELETE",
   });
+  return response;
 };
 
 // Get timeline data for a board

@@ -5,10 +5,8 @@ import * as cardService from "../../services/cardService.js";
 import CardForm from "../CardForm/CardForm.jsx";
 
 const CardDetails = () => {
-  const { cardId, boardId, listId } = useParams();
-  const [card, setCard] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { cardId } = useParams();
+  const [card, setCard] = useState([]);
 
 
   useEffect(() => {
