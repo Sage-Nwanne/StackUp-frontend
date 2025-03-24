@@ -43,7 +43,6 @@ const App = () => {
   const handleCreateBoard = async (boardFormData) => {
     try {
       const newBoard = await boardService.create(boardFormData);
-      console.log(newBoard);
       setBoards([ ...boards, newBoard]);
       navigate("/dashboard");
     } catch (error) {
