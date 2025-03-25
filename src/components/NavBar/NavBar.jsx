@@ -16,24 +16,23 @@ const NavBar = () => {
     <nav className="navbar">
     <div className="nav-container">
       <Link to="/" className="logo">StackUp</Link>
-      <ul className="nav-links">
+      <div className="nav-links">
         {user ? (
           <>
-            <li>Welcome, {user.username}</li>
-            <li><Link to="/dashboard">Dashboard</Link></li>
-            <li><Link to="/create">Create Board</Link></li>
-            <li>
+            <h2><Link to="/dashboard">Dashboard</Link></h2>
+            <h2><Link to="/create">Create Board</Link></h2>
+            <p>
               <button className="sign-out-btn" onClick={handleSignOut}>Log Out</button>
-            </li>
+            </p>
           </>
         ) : (
           <>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/sign-in"><button className="sign-in-btn">Sign In</button></Link></li>
-            <li><Link to="/sign-up"><button className="sign-up-btn">Sign Up</button></Link></li>
+            <p><Link to="/">Home</Link></p>
+            <p><Link to="/sign-in"><button className="sign-in-btn">Sign In</button></Link></p>
+            <p><Link to="/sign-up"><button className="sign-up-btn">Sign Up</button></Link></p>
           </>
         )}
-      </ul>
+      </div>
       </div>
     </nav>
   );

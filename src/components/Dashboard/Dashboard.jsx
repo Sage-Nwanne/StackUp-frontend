@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
 import {index, deleteBoard,} from "../../services/boardService";
+import './Dashboard.css';
 
 const Dashboard = (props) => {
   const { user } = useContext(UserContext);
@@ -53,7 +54,10 @@ const fetchBoards = async () => {
  
 
     return (
-        <main>
+        <main >
+          <div className="entire-dashboard">
+          <div className="top-ui">
+          <h1 className="title"> {user.username}'s Boards</h1>
            <div className="local-search-container">
         <input
           type="text"
@@ -62,19 +66,27 @@ const fetchBoards = async () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-            <h1>Welcome, {user.username}</h1>
-            <h2>Your Boards</h2>
-            <p>This is the dashboard page where you can see a list of your boards.</p>
-             {/* Display Filtered Boards */}
+      </div>
+      </div>
+            
+            
       <ul>
         {filteredBoards.length > 0 ? (
           filteredBoards.map((board) => (
-            <li key={board._id} className="board-item">
-              <Link to={`/dashboard/${board._id}`} onClick={() => handleBoardClick(board._id)}>
+            <li key={board._id} className="board-card">
+              <Link 
+                to={`/dashboard/${board._id}`}
+                className="board-card-content"
+                onClick={() => handleBoardClick(board._id)}
+              >
                 {board.name}
               </Link>
-              <button onClick={() => handleDeleteBoard(board._id)}>Delete</button>
-              <button> <Link to={`/dashboard/${board._id}/edit`}>Rename</Link></button>
+              <div className="board-card-actions">
+                <button onClick={() => handleDeleteBoard(board._id)}>Delete</button>
+                <button>
+                  <Link to={`/dashboard/${board._id}/edit`}>Rename</Link>
+                </button>
+              </div>
             </li>
           ))
         ) : (
