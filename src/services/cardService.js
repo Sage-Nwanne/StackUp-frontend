@@ -74,6 +74,3 @@ export const moveCard = async (boardId, cardId, newListId) => {
         console.error("Error moving card:", error);
     }
 };
-export const show = async (cardId, boardId, listId) => {
-  return await fetchWithAuth(`${BASE_URL}/${boardId}/${listId}/${cardId}`);
-};
