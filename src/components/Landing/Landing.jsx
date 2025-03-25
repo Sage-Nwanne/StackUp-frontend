@@ -23,7 +23,7 @@ const Landing = () => {
         )}
       </div>
       <div className="StackupLogo" aria-label="Placeholder for hero image">
-        <img src="../../public/StackupLogo.png" alt="" />
+        <img src="./StackupLogo.png" alt="" />
       </div>
     </main>
   );

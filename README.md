@@ -1,19 +1,44 @@
-# React JWT Auth Template
+# Stack Up
 
-## About
+Stack Up is a Trello-like project planning app that helps users manage tasks efficiently with lists and draggable cards.
 
-This repo is a React JWT Auth template meant to be paired with a back-end app utilizing JWT tokens.
+## Features
 
-## Getting started
+- **User Authentication**: Sign up and log in to access your boards.
+- **Create and Manage Boards**: Organize your projects with multiple boards.
+- **Drag and Drop**: Move cards within lists and between lists seamlessly.
+- **Crypto Price Tracking**: Monitor cryptocurrency prices (if applicable).
+- **Responsive Design**: Works across all screen sizes.
 
-Fork and clone this repository to your local machine.
+## Technologies Used
 
-After moving into the cloned directory, run `npm i` to download the dependencies.
+- **Frontend**: React, React DnD, Chart.js
+- **Backend**: Node.js, Express, MongoDB, Mongoose
+- **Authentication**: JWT (JSON Web Token)
+- **Styling**: CSS
 
-Create a `.env` file in the root of the project and add the following:
+## Installation
 
-```plaintext
-VITE_BACK_END_SERVER_URL=http://localhost:3000
-```
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/stack-up.git
+   cd stack-up 
 
-Start the app with `npm run dev`.
+2. Install dependencies for the backend:
+    ```sh
+    cd backend
+    npm install
+
+3. Install dependencies for the frontend:
+    ```sh
+    cd ../frontend
+    npm install
+
+4. Start the development server:
+    ```sh
+    //BackEnd
+    npm start
+    //FrontEnd
+    npm start
+
+
