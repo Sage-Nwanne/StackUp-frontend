@@ -5,10 +5,8 @@ import List from "../List/List";
 import { create, update, deleteList } from "../../services/listService.js";
 import { indexOne } from "../../services/boardService.js";
 import { createCard } from "../../services/cardService.js";
-import { Title } from "chart.js";
 
 const BoardDetails = () => {
-  const navigate = useNavigate();
   const { boardId } = useParams();
   const [board, setBoard] = useState(null);
   const [lists, setLists] = useState([]);
@@ -41,7 +39,7 @@ const BoardDetails = () => {
         return;
       }
 
-      // Update the backend first
+   
       const updatedCard = await moveCard(boardId, cardId, newListId);
 
       if (updatedCard && updatedCard.card) {

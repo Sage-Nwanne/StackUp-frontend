@@ -1,4 +1,5 @@
 # Stack Up
+![logo](./public/StackupLogo.png)
 
 Stack Up is a Trello-like project planning app that helps users manage tasks efficiently with lists and draggable cards.
 
@@ -41,4 +42,8 @@ Stack Up is a Trello-like project planning app that helps users manage tasks eff
     //FrontEnd
     npm start
 
-
+## Next steps
+* Continue with CSS Styling
+* Add the ability to have public and private boards
+* Implement a global serach function
+* Add the ability to follow other useres boards
